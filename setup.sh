@@ -21,7 +21,7 @@
 # Pré-requisito: Ubuntu 22.04 LTS, acesso root
 # ============================================================
 
-set -e  # Para se houver erro
+# set -e removido — erros não críticos não devem parar o setup
 
 # Cores para output
 RED='\033[0;31m'
@@ -404,7 +404,8 @@ else
   info "Instalando nano-banana (cópia direta — sem wizard)..."
   if [ -d "$WORKSPACE/skills/nano-banana-pro-2" ]; then
     cp -r "$WORKSPACE/skills/nano-banana-pro-2" /root/.openclaw/skills/
-    pip3 install -q google-generativeai pillow requests 2>/dev/null
+    pip3 install -q google-generativeai pillow requests 2>/dev/null || \
+    pip install -q google-generativeai pillow requests 2>/dev/null || true
     log "nano-banana instalado via cópia direta"
   else
     warn "Skill nano-banana não encontrada no workspace — geração de imagens não disponível"
