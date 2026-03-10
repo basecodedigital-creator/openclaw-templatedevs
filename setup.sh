@@ -261,7 +261,7 @@ log "openclaw.json configurado"
 header "🤖 CONFIGURAÇÃO — Sub-agentes"
 # ============================================================
 
-mkdir -p /root/.openclaw/agents/{main,copywriter,freellm,analista,designer,barato,nexus,operacional}
+mkdir -p /root/.openclaw/agents/{main,copywriter,freellm,jiraiya,analista,designer,barato,nexus,operacional}
 
 # Agente main (Luana)
 cat > /root/.openclaw/agents/main/agent.json << 'EOF'
