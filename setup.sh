@@ -401,10 +401,14 @@ mkdir -p /root/.openclaw/skills
 if [ -d "/root/.openclaw/skills/nano-banana-pro-2" ]; then
   log "nano-banana já instalado"
 else
-  info "Instalando nano-banana..."
-  openclaw skills install nano-banana-pro 2>/dev/null || \
-  pip3 install google-generativeai pillow requests 2>/dev/null
-  log "nano-banana instalado"
+  info "Instalando nano-banana (cópia direta — sem wizard)..."
+  if [ -d "$WORKSPACE/skills/nano-banana-pro-2" ]; then
+    cp -r "$WORKSPACE/skills/nano-banana-pro-2" /root/.openclaw/skills/
+    pip3 install -q google-generativeai pillow requests 2>/dev/null
+    log "nano-banana instalado via cópia direta"
+  else
+    warn "Skill nano-banana não encontrada no workspace — geração de imagens não disponível"
+  fi
 fi
 
 # ============================================================
