@@ -16,7 +16,7 @@ um novo fluxo de execução → OBRIGATÓRIO antes de dizer "pronto":
   2. ✅ Adicionar na tabela SKILLS REGISTRY (seção logo abaixo)
   3. ✅ Atualizar MEMORY.md (seção Componentes ou Skills)
   4. ✅ Criar GUIA-NOME.md se processo tiver mais de 10 linhas
-  5. ✅ Confirmar para Pedro: "Instalado e documentado no BRAIN.md ✅"
+  5. ✅ Confirmar para o usuário: "Instalado e documentado no BRAIN.md ✅"
 
 SEM ESSES 5 PASSOS = TAREFA INCOMPLETA.
 ```
@@ -47,10 +47,10 @@ SEM ESSES 5 PASSOS = TAREFA INCOMPLETA.
 ## 🔖 CHECKPOINT — Comando de Resumo de Sessão
 
 ### Como funciona:
-- Pedro digita `#checkpoint` no chat
+- O usuário digita `#checkpoint` no chat
 - Eu gero um resumo estratégico da conversa atual
 - Salvo em `memory/session-atual.md` (sobrescreve sempre — arquivo único)
-- Pedro pode trocar modelo ou resetar sessão
+- O usuário pode trocar modelo ou resetar sessão
 - **No início de qualquer sessão nova: ler `memory/session-atual.md` automaticamente se existir**
 
 ### Regra de boot (OBRIGATÓRIO):
@@ -60,13 +60,13 @@ Não perguntar, não comentar — apenas absorver o contexto e continuar
 ```
 
 ### Comando #reset (limpeza manual via Telegram):
-Quando Pedro digitar `#reset` no chat:
+Quando O usuário digitar `#reset` no chat:
 1. Confirmar que `memory/session-atual.md` existe (se não existir, avisar para fazer #checkpoint antes)
 2. Chamar o endpoint de reset:
 ```bash
 curl -s -X POST http://localhost:3001/api/agents/reset-session
 ```
-3. Avisar Pedro: "Sessão resetada — pode levar alguns segundos. Mande uma mensagem para confirmar que voltei."
+3. Avisar o usuário: "Sessão resetada — pode levar alguns segundos. Mande uma mensagem para confirmar que voltei."
 4. ⚠️ A confirmação pode não aparecer imediatamente pois o gateway reinicia — isso é NORMAL
 
 ### Fluxo completo recomendado:
@@ -225,8 +225,8 @@ chmod +x /root/.openclaw/workspace/lembrete-NOME.sh
 (crontab -l; echo "MM HH DD MM * /root/.openclaw/workspace/lembrete-NOME.sh") | crontab -
 ```
 
-⚠️ **Pedro fala em horário SP (UTC-3). Sempre somar 3h para o cron.**
-Exemplo: Pedro diz 15h → cron usa 18h UTC → `00 18 * * *`
+⚠️ **O usuário fala em horário SP (UTC-3). Sempre somar 3h para o cron.**
+Exemplo: usuário diz 15h → cron usa 18h UTC → `00 18 * * *`
 
 ---
 
@@ -281,8 +281,8 @@ model = json.load(open('/root/.openclaw/agents/copywriter/agent.json'))['model']
 - ❌ Sem idioma → modelo pode responder em inglês
 
 **4. Sempre passar exatamente a quantidade pedida pelo usuário:**
-- Se Pedro pede 1 → passar "Crie APENAS 1..."
-- Se Pedro pede 5 → passar "Crie EXATAMENTE 5..."
+- Se o usuário pede 1 → passar "Crie APENAS 1..."
+- Se o usuário pede 5 → passar "Crie EXATAMENTE 5..."
 
 **Exemplo de spawn correto:**
 ```python
@@ -314,7 +314,7 @@ transcricao start
 transcricao stop
 ```
 
-**Funcionamento:** Automático. Pedro envia áudio no Telegram → Whisper transcreve → texto chega para mim.
+**Funcionamento:** Automático. o usuário envia áudio no Telegram → Whisper transcreve → texto chega para mim.
 
 ---
 
@@ -382,7 +382,7 @@ openclaw status
 ## 📋 ARQUITETURA DO SISTEMA (Visão Rápida)
 
 ```
-Pedro (Telegram) ←→ OpenClaw/Luana ←→ Supabase
+o usuário (Telegram) ←→ OpenClaw/Luana ←→ Supabase
                                     ↕
                          Dyad/Lovable (frontend web)
                                     ↕
@@ -391,8 +391,8 @@ Pedro (Telegram) ←→ OpenClaw/Luana ←→ Supabase
               nano-banana (imagens)    Playwright (web)
 ```
 
-**Fluxo Dyad → Telegram:** Pedro cria tarefa no Dyad → Supabase → Task Runner executa → resultado no Telegram
-**Fluxo Telegram → Dyad:** Pedro cria lembrete/tarefa no Telegram → Supabase atualiza → aparece no Dyad
+**Fluxo Dyad → Telegram:** o usuário cria tarefa no Dyad → Supabase → Task Runner executa → resultado no Telegram
+**Fluxo Telegram → Dyad:** o usuário cria lembrete/tarefa no Telegram → Supabase atualiza → aparece no Dyad
 
 ---
 
@@ -413,7 +413,7 @@ Pedro (Telegram) ←→ OpenClaw/Luana ←→ Supabase
 
 ## ⚠️ REGRA OBRIGATÓRIA — SEMPRE PERGUNTAR ANTES DE CRIAR
 
-Quando Pedro pedir para criar um novo subagente, **NUNCA executar direto**.
+Quando o usuário pedir para criar um novo subagente, **NUNCA executar direto**.
 Seguir este protocolo:
 
 ### PASSO 0 — Planejar e Apresentar para Aprovação
@@ -438,7 +438,7 @@ Pergunta: Você quer criar com qual opção?
       → Só cria agent.json local (sem aparecer no Dyad)
 ```
 
-**Só executar após Pedro responder A ou B.**
+**Só executar após o usuário responder A ou B.**
 
 ---
 
@@ -482,9 +482,9 @@ curl -s -X POST "https://nyoevvuwxtatdmdiorjr.supabase.co/rest/v1/agents" \
 DYAD_TOKEN=$(grep GITHUB_DYAD_TOKEN /root/.openclaw/workspace/.env | cut -d= -f2)
 cd /root/.openclaw/mission-control
 git fetch origin && git reset --hard origin/main
-git config user.email "pedrocamp021@gmail.com"
-git config user.name "pedrocamp021"
-git remote set-url origin "https://${DYAD_TOKEN}@github.com/pedrocamp021/peaceful-iguana-hug.git"
+git config user.email "[SEU_EMAIL_GITHUB]"
+git config user.name "[SEU_USUARIO_GITHUB]"
+git remote set-url origin "https://${DYAD_TOKEN}@github.com/[SEU_USUARIO_GITHUB]/[SEU_REPO_DYAD].git"
 
 # Editar src/lib/agents.ts → adicionar novo agente no AGENTS{}
 # Editar src/components/kanban/UnifiedCard.tsx → adicionar cor border-l
@@ -527,12 +527,12 @@ git push origin main
 
 | Repo | Dono | Token | Pasta local | O que é |
 |------|------|-------|-------------|---------|
-| `pedrocamp021/peaceful-iguana-hug` | pedrocamp021 | `GITHUB_DYAD_TOKEN` no `.env` | `/root/.openclaw/mission-control` ← pasta local com nome diferente, mas É O MESMO REPO | **Sistema Dyad/OmniClaw (frontend React/Vite)** |
-| `basecodedigital-creator/openclaw-setup` | basecodedigital-creator | `GITHUB_TOKEN` no `.env` | `/root/.openclaw/workspace` | **Workspace/scripts/memórias** |
+| `[SEU_USUARIO_GITHUB]/[SEU_REPO_DYAD]` | [SEU_USUARIO_GITHUB] | `GITHUB_DYAD_TOKEN` no `.env` | `/root/.openclaw/mission-control` ← pasta local com nome diferente, mas É O MESMO REPO | **Sistema Dyad/OmniClaw (frontend React/Vite)** |
+| `[SEU_USUARIO_GITHUB]/[SEU_REPO_SETUP]` | basecodedigital-creator | `GITHUB_TOKEN` no `.env` | `/root/.openclaw/workspace` | **Workspace/scripts/memórias** |
 
 **Regra simples:**
-- Pedro pediu alterar o **sistema Dyad/OmniClaw** → usar `mission-control` + `GITHUB_DYAD_TOKEN`
-- Pedro pediu **backup/deploy do workspace** → usar `workspace` + `GITHUB_TOKEN`
+- o usuário pediu alterar o **sistema Dyad/OmniClaw** → usar `mission-control` + `GITHUB_DYAD_TOKEN`
+- o usuário pediu **backup/deploy do workspace** → usar `workspace` + `GITHUB_TOKEN`
 
 **Processo para alterar o sistema Dyad (frontend):**
 
@@ -548,9 +548,9 @@ git fetch origin
 git reset --hard origin/main
 
 # Configurar autor CORRETO (obrigatório para Vercel aceitar)
-git config user.email "pedrocamp021@gmail.com"
-git config user.name "pedrocamp021"
-git remote set-url origin "https://${DYAD_TOKEN}@github.com/pedrocamp021/peaceful-iguana-hug.git"
+git config user.email "[SEU_EMAIL_GITHUB]"
+git config user.name "[SEU_USUARIO_GITHUB]"
+git remote set-url origin "https://${DYAD_TOKEN}@github.com/[SEU_USUARIO_GITHUB]/[SEU_REPO_DYAD].git"
 
 # --- FAZER ALTERAÇÕES NOS ARQUIVOS AQUI ---
 # Estrutura do projeto:
@@ -568,8 +568,8 @@ git push origin main
 
 **⚠️ REGRAS CRÍTICAS:**
 - ✅ Sempre `git reset --hard origin/main` ANTES de editar (Lovable pode ter mudado o remoto)
-- ✅ `user.email` deve ser `pedrocamp021@gmail.com`
-- ✅ `user.name` deve ser `pedrocamp021`
+- ✅ `user.email` deve ser `[SEU_EMAIL_GITHUB]`
+- ✅ `user.name` deve ser `[SEU_USUARIO_GITHUB]`
 - ❌ Se usar email errado → Vercel bloqueia o deploy ("implantação bloqueada")
 - ✅ Se bloqueou: `git commit --amend --reset-author --no-edit` + `git push --force`
 - ❌ NUNCA usar o token `GITHUB_TOKEN` (basecodedigital) no repo do Dyad — dá 403!
@@ -585,14 +585,14 @@ git push origin main
 ### 🚨 INCIDENTE DOCUMENTADO — 2026-03-07
 
 **O que aconteceu:**
-Pedro pediu para trocar de `kimi-k2.5` para `claude-sonnet-4.6` via chat.
+o usuário pediu para trocar de `kimi-k2.5` para `claude-sonnet-4.6` via chat.
 A IA principal tentou fazer a troca pelo chat mas entrou em loop — ficava dizendo "estou implementando" e parava de responder sem concluir. Sistema ficou inutilizável via Telegram.
 
 **Causa raiz:**
 Tentar editar `openclaw.json` via ferramentas do chat enquanto o próprio gateway está ativo pode causar race condition ou timeout no contexto — o modelo trava tentando modificar a configuração do sistema que o sustenta.
 
 **Como foi resolvido:**
-Pedro usou uma IA externa (fora do OpenClaw) para executar os comandos direto no terminal via SSH — a IA editou o JSON e reiniciou o gateway manualmente.
+o usuário usou uma IA externa (fora do OpenClaw) para executar os comandos direto no terminal via SSH — a IA editou o JSON e reiniciou o gateway manualmente.
 
 **Lição aprendida:**
 > ❌ NUNCA tentar trocar o modelo principal via ferramentas do chat em sessão ativa.
@@ -602,10 +602,10 @@ Pedro usou uma IA externa (fora do OpenClaw) para executar os comandos direto no
 
 ### 🚨 BUG DOCUMENTADO — Sistema Dyad (Vercel): Card de subagente não atualiza modelo sem F5 (2026-03-07)
 
-**⚠️ ATENÇÃO:** Este bug era no **sistema Dyad/Vercel** (pedrocamp021/peaceful-iguana-hug), NÃO no painel do OpenClaw.
+**⚠️ ATENÇÃO:** Este bug era no **sistema Dyad/Vercel** ([SEU_USUARIO_GITHUB]/[SEU_REPO_DYAD]), NÃO no painel do OpenClaw.
 
 **Sintoma:**
-Pedro acessa o sistema Dyad → edita um subagente → troca o modelo → salva → o card continua mostrando o modelo antigo. Só atualiza ao trocar de menu ou recarregar a página.
+o usuário acessa o sistema Dyad → edita um subagente → troca o modelo → salva → o card continua mostrando o modelo antigo. Só atualiza ao trocar de menu ou recarregar a página.
 
 **Causa raiz:**
 O `EditAgentDialog` salvava no Supabase mas não chamava refresh local da lista. Dependia só do realtime do Supabase para atualizar, que às vezes atrasava.
@@ -650,7 +650,7 @@ openclaw gateway restart
 
 **⚠️ SE EU TRAVAR durante a troca (entrar em loop ou parar de responder):**
 ```bash
-# Pedro deve acessar o servidor via SSH e executar manualmente:
+# o usuário deve acessar o servidor via SSH e executar manualmente:
 ssh root@IP-DO-SERVIDOR
 
 # Verificar o arquivo atual
@@ -675,7 +675,7 @@ openclaw status
 - `openrouter/mistralai/mistral-nemo` — gratuito, tarefas gerais
 - `openrouter/moonshotai/kimi-k2.5` — contexto gigante (1M tokens)
 
-**Para trocar pelo chat:** Pedro pede "troca o modelo para X" → eu executo o script abaixo via `exec`. NÃO editar JSON manualmente em sessão ativa.
+**Para trocar pelo chat:** o usuário pede "troca o modelo para X" → eu executo o script abaixo via `exec`. NÃO editar JSON manualmente em sessão ativa.
 
 ### ⚡ COMANDO ÚNICO — Trocar modelo (qualquer IA consegue executar):
 
@@ -699,7 +699,7 @@ openclaw status
 ```
 
 **O script faz tudo automaticamente:** backup → adiciona na whitelist → troca o primary → valida → reinicia gateway → confirma.
-Se eu travar → Pedro acessa SSH e roda o script diretamente.
+Se eu travar → o usuário acessa SSH e roda o script diretamente.
 
 ### 📋 REGRA RÁPIDA — Onde trocar modelo de cada agente:
 
@@ -720,7 +720,7 @@ Se eu travar → Pedro acessa SSH e roda o script diretamente.
 
 **Agente principal (Luana)** → troca só na **próxima sessão**:
 - A troca salva no `openclaw.json` corretamente
-- Mas a sessão ativa com Pedro continua no modelo antigo até encerrar
+- Mas a sessão ativa com o usuário continua no modelo antigo até encerrar
 - Quando entra em vigor: botão "Aplicar sessão" no Dyad, `/reset` manual, reset diário automático (04:00), ou compactação
 
 **Isso é comportamento normal e esperado — não é bug.**
@@ -750,7 +750,7 @@ curl -s -X POST http://localhost:3001/api/agents/reset-session
 ### 9. 🔧 TRAVAMENTOS NO TELEGRAM — Mensagem começa, para, precisa de "oi" para destravar
 
 **Sintoma:**
-- Pedro manda mensagem → IA começa a digitar → para no meio
+- o usuário manda mensagem → IA começa a digitar → para no meio
 - Só destravar mandando "oi" ou outra mensagem
 - Acontece especialmente após troca de modelo ou operações longas
 
@@ -797,7 +797,7 @@ openclaw gateway restart
 
 ### 8. 📄 RELATÓRIOS E DOCUMENTOS HTML
 
-**SEMPRE que Pedro pedir relatório, documento, manual ou HTML:**
+**SEMPRE que o usuário pedir relatório, documento, manual ou HTML:**
 
 ```python
 # PASSO 1: Criar o arquivo HTML
@@ -894,9 +894,9 @@ eaa71569-7a1b-4c34-861f-752e9927eef0 → barato
 
 ```bash
 # Um comando instala tudo do zero
-curl -s https://raw.githubusercontent.com/basecodedigital-creator/openclaw-setup/main/setup.sh | bash
+curl -s https://raw.githubusercontent.com/[SEU_USUARIO_GITHUB]/[SEU_REPO_SETUP]/main/setup.sh | bash
 # Ou baixar e rodar:
-wget https://raw.githubusercontent.com/basecodedigital-creator/openclaw-setup/main/setup.sh
+wget https://raw.githubusercontent.com/[SEU_USUARIO_GITHUB]/[SEU_REPO_SETUP]/main/setup.sh
 bash setup.sh
 ```
 
@@ -908,7 +908,7 @@ bash setup.sh
 **Camada 1 (obrigatório):** Telegram token + Chat ID + OpenRouter key + Gemini key
 **Camada 2 (opcional):** Supabase URL + Key (para sistema visual Dyad/Lovable)
 
-**Repo:** https://github.com/basecodedigital-creator/openclaw-setup
+**Repo:** https://github.com/[SEU_USUARIO_GITHUB]/[SEU_REPO_SETUP]
 
 ---
 
@@ -927,9 +927,9 @@ bash setup.sh
 - Bloqueia push se detectar credencial exposta
 - Commit + push com a mensagem que você passou
 
-**Repo:** https://github.com/basecodedigital-creator/openclaw-setup
+**Repo:** https://github.com/[SEU_USUARIO_GITHUB]/[SEU_REPO_SETUP]
 **⚠️ Token GitHub:** Criar novo em github.com → Settings → Developer settings → Tokens (classic)
-Após criar token novo: `git remote set-url origin https://TOKEN@github.com/basecodedigital-creator/openclaw-setup.git`
+Após criar token novo: `git remote set-url origin https://TOKEN@github.com/[SEU_USUARIO_GITHUB]/[SEU_REPO_SETUP].git`
 
 ---
 
@@ -1041,7 +1041,7 @@ api-bridge/server-template.js → placeholder
 |-------------|-----------|
 | `[SUA-SUPABASE-SERVICE-KEY]` | SUPABASE_SERVICE_KEY do .env |
 | `[SEU-TELEGRAM-BOT-TOKEN]` | TELEGRAM_BOT_TOKEN do .env |
-| `[SEU-TELEGRAM-CHAT-ID]` | Chat ID do Pedro no Telegram |
+| `[SEU-TELEGRAM-CHAT-ID]` | Chat ID do o usuário no Telegram |
 | `[SEU-PROJETO].supabase.co` | URL do projeto Supabase |
 | `[SEU-GITHUB-TOKEN]` | GITHUB_TOKEN do .env |
 | `[SEU-GITHUB-DYAD-TOKEN]` | GITHUB_DYAD_TOKEN do .env |
@@ -1054,4 +1054,4 @@ sed 's|CHAVE_REAL|[PLACEHOLDER]|g' api-bridge/server.js > api-bridge/server-temp
 # Recriar template do BRAIN.md  
 sed 's|CHAVE_REAL|[PLACEHOLDER]|g' BRAIN.md > BRAIN-template.md
 ```
-**Depois pedir autorização para Pedro antes de fazer push.**
+**Depois pedir autorização para o usuário antes de fazer push.**

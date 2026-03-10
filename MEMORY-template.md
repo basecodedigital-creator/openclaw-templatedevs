@@ -7,7 +7,7 @@
 
 ## 🧠 LEITURA OBRIGATÓRIA NO BOOT
 
-**Ao iniciar qualquer sessão com Pedro, ler IMEDIATAMENTE:**
+**Ao iniciar qualquer sessão com o usuário, ler IMEDIATAMENTE:**
 
 1. `BRAIN.md` — processos críticos prontos (imagens, lembretes, Playwright, emergências)
 2. `MEMORY.md` — este arquivo (já carregado automaticamente)
@@ -41,7 +41,7 @@
 - Modelo: Claude Sonnet 4.6 (openrouter/anthropic/claude-sonnet-4.6)
 
 **Usuário:**
-- Nome: Pedro
+- Nome: o usuário
 - Localização: São Paulo, Brasil
 - Timezone: America/Sao_Paulo (UTC-3)
 - Projeto: Marketing digital, automações, sistemas pessoais
@@ -132,7 +132,7 @@
 | Multi-agentes | ✅ Configurado | main, copywriter, barato, analista, nexus, jiraiya |
 
 ### Configurações de Rede
-- **SSH Tunnel:** `ssh -L 18789:localhost:18789 root@76.13.237.21`
+- **SSH Tunnel:** `ssh -L 18789:localhost:18789 root@[IP_DO_SEU_SERVIDOR]`
 - **Dashboard:** http://localhost:18789/
 - **Tailscale:** Desativado (estabilidade)
 
@@ -148,7 +148,6 @@
 ├── smart-context.sh            # Monitor de tokens
 ├── smart-reset.sh              # Reset de contexto manual
 ├── voice-service.sh            # Serviço de transcrição
-├── lembrete-pausar-fb-0125.sh  # Lembrete Facebook (01:25)
 └── transcricao                 # Symlink de controle voice-service
 ```
 
@@ -389,11 +388,7 @@ Quando você iniciar mensagem com #hashtag, automaticamente farei spawn do sub-a
 ### Prioridade Alta
 - [x] Configurar sistema financeiro (Supabase) ✅ CONECTADO
 - [x] Criar scripts de integração *financas ✅ FUNCIONANDO
-- [x] Setup Facebook Ads API ✅ CONECTADO
-  - App ID: 946990787989772
-  - Ad Account: act_2327823127692269 (CA - Niverkids)
   - Status: Ativa
-  - Script: fb-ads-integration.sh
 - [ ] Implementar automação de campanhas
 
 ### Prioridade Média
@@ -410,7 +405,6 @@ Quando você iniciar mensagem com #hashtag, automaticamente farei spawn do sub-a
   - Agentes especializados: Designer AI (imagens), Copywriter, Estrategista, Analista
   - Dashboard Lovable com backend unificado
   - Fluxo: Comando → Luana analisa → Spawn agentes → Consolida resultado
-  - Integração: API de imagens (DALL-E 3), Playwright, Facebook Ads, Google Ads
 - [ ] Configurar integrações adicionais
 
 ### Concluídas
@@ -518,7 +512,7 @@ timeout 120 /root/.local/bin/uv run \
 
 ## 📄 REGRA CRÍTICA — RELATÓRIOS E HTML
 
-**Sempre que Pedro pedir relatório, manual, documento ou HTML:**
+**Sempre que o usuário pedir relatório, manual, documento ou HTML:**
 1. Criar arquivo `.html` em `/root/.openclaw/workspace/`
 2. Enviar com `message tool` usando `filePath` relativo (`./arquivo.html`)
 3. NUNCA enviar HTML longo como texto no chat — causa "Network connection lost"

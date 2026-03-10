@@ -2,19 +2,17 @@
 
 *Learn about the person you're helping. Update this as you go.*
 
-- **Name:** Pedro
-- **What to call them:** Pedro
+- **Name:** [PREENCHER]
+- **What to call them:** [PREENCHER]
 - **Pronouns:** 
 - **Timezone:** America/Sao_Paulo (UTC-3)
 - **Location:** Brazil
-- **Notes:** Working together on digital marketing projects
-- **Assistant Name:** Luana Devs (anteriormente Jiren)
+- **Notes:** [PREENCHER]
+- **Assistant Name:** Luana Devs
 
 ## Context
 
-- Digital marketing professional
-- Based in Brazil, São Paulo timezone
-- Wants to collaborate on marketing projects
+[Adicione contexto sobre o usuário aqui]
 
 ---
 

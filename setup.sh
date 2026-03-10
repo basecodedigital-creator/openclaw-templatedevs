@@ -3,7 +3,7 @@
 # setup.sh — Instalação Completa OpenClaw
 # Versão: 2.0 | 2026-03-10
 #
-# Uso: curl -s https://raw.githubusercontent.com/basecodedigital-creator/openclaw-setup/main/setup.sh | bash
+# Uso: curl -s https://raw.githubusercontent.com/basecodedigital-creator/openclaw-templatedevs/main/setup.sh | bash
 # Ou:  bash setup.sh
 #
 # O que instala:
@@ -157,7 +157,7 @@ info "Clonando repositório com templates e documentação..."
 if [ -d "$WORKSPACE/.git" ]; then
   git pull origin main 2>/dev/null || warn "Não foi possível atualizar o repo"
 else
-  git clone https://github.com/basecodedigital-creator/openclaw-setup.git /tmp/openclaw-setup
+  git clone https://github.com/basecodedigital-creator/openclaw-templatedevs.git /tmp/openclaw-setup
   cp -r /tmp/openclaw-setup/. "$WORKSPACE/"
   rm -rf /tmp/openclaw-setup
 fi
