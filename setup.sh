@@ -615,6 +615,14 @@ fi
 
 log "Arquivos de documentação configurados"
 
+# Exportar GEMINI_API_KEY no .bashrc para skills funcionarem
+if [ -n "$GEMINI_API_KEY" ]; then
+  grep -q "GEMINI_API_KEY" /root/.bashrc 2>/dev/null || \
+    echo "export GEMINI_API_KEY=\"${GEMINI_API_KEY}\"" >> /root/.bashrc
+  export GEMINI_API_KEY="${GEMINI_API_KEY}"
+  log "GEMINI_API_KEY exportada no ambiente"
+fi
+
 # Criar trocar-modelo.sh
 cat > "$WORKSPACE/trocar-modelo.sh" << 'TMEOF'
 #!/bin/bash
