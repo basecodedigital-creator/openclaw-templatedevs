@@ -473,7 +473,13 @@ AUTHEOF
 done
 log "Auth configurado para todos os agentes"
 
+# Corrigir config antes de iniciar (remove chaves inválidas)
+info "Corrigindo configuração com doctor --fix..."
+openclaw doctor --fix 2>/dev/null || true
+sleep 2
+
 # Iniciar gateway
+info "Iniciando gateway..."
 openclaw gateway start 2>/dev/null || systemctl start openclaw-gateway 2>/dev/null
 sleep 5
 
