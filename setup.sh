@@ -213,8 +213,7 @@ cat > /root/.openclaw/openclaw.json << CONFEOF
     "profiles": {
       "openrouter:default": {
         "provider": "openrouter",
-        "mode": "api_key",
-        "apiKey": "${OPENROUTER_API_KEY}"
+        "mode": "api_key"
       }
     }
   },
@@ -242,7 +241,7 @@ cat > /root/.openclaw/openclaw.json << CONFEOF
       "dmPolicy": "pairing",
       "botToken": "${TELEGRAM_BOT_TOKEN}",
       "groupPolicy": "allowlist",
-      "streamMode": "off"
+      "streaming": "off"
     }
   },
   "gateway": {
