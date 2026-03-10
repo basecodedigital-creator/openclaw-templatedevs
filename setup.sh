@@ -445,13 +445,19 @@ header "⚙️  CONFIGURAÇÃO — Serviço systemd"
 
 info "Configurando OpenClaw como serviço..."
 openclaw gateway install 2>/dev/null || systemctl enable openclaw-gateway 2>/dev/null || warn "Configurar serviço manualmente"
+
+# Garantir que a chave OpenRouter está salva corretamente
+info "Validando configuração OpenRouter..."
+openclaw doctor --fix 2>/dev/null || true
+
+# Iniciar gateway
 openclaw gateway start 2>/dev/null || systemctl start openclaw-gateway 2>/dev/null
-sleep 3
+sleep 5
 
 if openclaw status 2>/dev/null | grep -q "running"; then
   log "Gateway OpenClaw rodando"
 else
-  warn "Verificar status do gateway: openclaw status"
+  warn "Gateway não iniciou automaticamente. Rode manualmente: openclaw gateway start"
 fi
 
 # ============================================================
@@ -663,9 +669,10 @@ echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━
 echo ""
 echo "📱 PRÓXIMOS PASSOS:"
 echo ""
-echo "  1. Abra o Telegram e envie /start para o seu bot"
-echo "  2. O bot vai pedir para parear o dispositivo"
-echo "  3. Siga as instruções do bot"
+echo "  1. Se o gateway não iniciou: openclaw gateway start"
+echo "  2. Abra o Telegram e envie /start para o seu bot"
+echo "  3. Na VPS rode: openclaw pairing list"
+echo "  4. Aprove o código: openclaw pairing approve CODIGO"
 echo ""
 echo "🔍 VERIFICAR STATUS:"
 echo "  openclaw status"
