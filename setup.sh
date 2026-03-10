@@ -446,9 +446,28 @@ header "⚙️  CONFIGURAÇÃO — Serviço systemd"
 info "Configurando OpenClaw como serviço..."
 openclaw gateway install 2>/dev/null || systemctl enable openclaw-gateway 2>/dev/null || warn "Configurar serviço manualmente"
 
-# Garantir que a chave OpenRouter está salva corretamente
-info "Validando configuração OpenRouter..."
-openclaw doctor --fix 2>/dev/null || true
+# Criar auth-profiles.json para todos os agentes (evita erro "No API key found")
+info "Configurando autenticação dos agentes..."
+for AGENT_ID in main copywriter freellm jiraiya analista designer barato nexus operacional; do
+  AGENT_AUTH_DIR="/root/.openclaw/agents/${AGENT_ID}/agent"
+  mkdir -p "$AGENT_AUTH_DIR"
+  cat > "$AGENT_AUTH_DIR/auth-profiles.json" << AUTHEOF
+{
+  "version": 1,
+  "profiles": {
+    "openrouter:default": {
+      "type": "api_key",
+      "provider": "openrouter",
+      "key": "${OPENROUTER_API_KEY}"
+    }
+  },
+  "lastGood": {
+    "openrouter": "openrouter:default"
+  }
+}
+AUTHEOF
+done
+log "Auth configurado para todos os agentes"
 
 # Iniciar gateway
 openclaw gateway start 2>/dev/null || systemctl start openclaw-gateway 2>/dev/null
